@@ -10,6 +10,7 @@
     "Other"
   ],
   "activationEvents": [
+    "onStartupFinished",
     "onCommand:inrepocodereview.openReview"
   ],
   "main": "./src/extension.js",
