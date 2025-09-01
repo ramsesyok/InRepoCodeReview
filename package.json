@@ -1,0 +1,30 @@
+{
+  "name": "inrepocodereview",
+  "displayName": "InRepoCodeReview",
+  "description": "In-repository code review extension for VSCode",
+  "version": "0.0.1",
+  "engines": {
+    "vscode": "^1.60.0"
+  },
+  "categories": [
+    "Other"
+  ],
+  "activationEvents": [
+    "onCommand:inrepocodereview.openReview"
+  ],
+  "main": "./src/extension.js",
+  "contributes": {
+    "commands": [
+      {
+        "command": "inrepocodereview.openReview",
+        "title": "Open Code Review"
+      }
+    ]
+  },
+  "scripts": {
+    "test": "echo \"No tests yet\""
+  },
+  "devDependencies": {
+    "@types/vscode": "^1.60.0"
+  }
+}
