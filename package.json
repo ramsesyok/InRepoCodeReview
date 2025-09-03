@@ -10,7 +10,6 @@
     "Other"
   ],
   "activationEvents": [
-    "onStartupFinished",
     "onCommand:inrepocodereview.openReview"
   ],
   "main": "./src/extension.js",
@@ -19,8 +18,28 @@
       {
         "command": "inrepocodereview.openReview",
         "title": "Open Code Review"
+      },
+      {
+        "command": "inrepocodereview.createReview",
+        "title": "Create Review"
       }
-    ]
+    ],
+    "menus": {
+      "editor/context": [
+        {
+          "command": "inrepocodereview.createReview",
+          "when": "editorTextFocus",
+          "group": "inrepocodereview"
+        }
+      ],
+      "comments/commentThread/context": [
+        {
+          "command": "inrepocodereview.createReview",
+          "when": "commentController == inrepocodereview",
+          "group": "inline"
+        }
+      ]
+    }
   },
   "scripts": {
     "test": "echo \"No tests yet\""
