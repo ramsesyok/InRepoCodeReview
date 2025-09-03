@@ -75,6 +75,30 @@ async function createReview() {
     commentThreads.set(threadId, thread);
 }
 
+async function setUserName() {
+    const userName = await vscode.window.showInputBox({
+        prompt: 'Enter your username for code review comments',
+        placeHolder: 'Username',
+        validateInput: (text) => {
+            if (!text || text.trim().length === 0) {
+                return 'Username cannot be empty';
+            }
+            return null;
+        }
+    });
+
+    if (!userName) {
+        return;
+    }
+
+    try {
+        await vscode.workspace.getConfiguration('inrepocodereview').update('userName', userName.trim(), vscode.ConfigurationTarget.Global);
+        vscode.window.showInformationMessage(`Username '${userName}' has been saved successfully!`);
+    } catch (error) {
+        vscode.window.showErrorMessage(`Failed to save username: ${error.message}`);
+    }
+}
+
 function activate(context) {
     console.log('InRepoCodeReview extension is now active!');
 
@@ -87,7 +111,11 @@ function activate(context) {
         await createReview(reply);
     });
 
-    context.subscriptions.push(openReviewCommand, createReviewCommand);
+    const setUserNameCommand = vscode.commands.registerCommand('inrepocodereview.setUserName', async function () {
+        await setUserName();
+    });
+
+    context.subscriptions.push(openReviewCommand, createReviewCommand, setUserNameCommand);
 
     // Dispose comment controller on deactivation
     context.subscriptions.push({
